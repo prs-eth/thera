@@ -18,7 +18,7 @@ from args import parser
 from data import ImageFolder
 from model import build_thera
 from utils import make_grid, compute_metrics
-from matlab_bicubic import imresize as matlab_imresize
+from vendor.matlab_bicubic import imresize as matlab_imresize
 
 MEAN = np.array([.4488, .4371, .4040])
 VAR = np.array([.25, .25, .25])
