@@ -12,7 +12,7 @@ from PIL import Image
 from tqdm import tqdm
 
 from data import ImageFolder
-from models import Hypernetwork, TheraNet
+from model import Hypernetwork, TheraNet
 from utils import make_grid, interpolate_grid
 
 MEAN = np.array([.4488, .4371, .4040])

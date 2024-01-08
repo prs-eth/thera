@@ -6,7 +6,7 @@ import jax.numpy as jnp
 import flax.linen as nn
 from jaxtyping import Array, ArrayLike, PyTree
 
-from models import Hypernetwork
+from .hyper import Hypernetwork
 from .init import uniform_between, linear_up
 from utils import make_grid, interpolate_grid, repeat_vmap
 

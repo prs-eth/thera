@@ -16,7 +16,7 @@ from PIL import Image
 
 from args import parser
 from data import ImageFolder
-from models import build_thera
+from model import build_thera
 from utils import make_grid, compute_metrics
 from matlab_bicubic import imresize as matlab_imresize
 

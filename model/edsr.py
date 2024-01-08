@@ -1,6 +1,5 @@
 # from https://github.com/isaaccorley/jax-enhance
 
-import math
 from functools import partial
 from typing import Any, Sequence, Callable
 

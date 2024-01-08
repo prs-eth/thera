@@ -15,7 +15,7 @@ from tqdm import tqdm
 import wandb
 
 from args import parser
-from models import build_thera
+from model import build_thera
 from data import make_data_loaders
 from utils import seed_all, split, compute_metrics
 
