@@ -1,5 +1,4 @@
 import math
-from functools import partial
 
 import jax
 import jax.numpy as jnp
@@ -7,9 +6,6 @@ import flax.linen as nn
 from jaxtyping import Array, ArrayLike, PyTreeDef
 import numpy as np
 
-from .edsr import EDSR
-from .rdn import RDN
-from .swin_ir import SwinIR
 from utils import interpolate_grid
 
 
@@ -47,31 +43,23 @@ class Projection(nn.Module):
 
 
 class Hypernetwork(nn.Module):
-    backbone: str
+    encoder: nn.Module
     tail_blocks: list
     output_params_shape: list[tuple]  # e.g. [(16,), (32, 32), ...]
     tree_def: PyTreeDef  # used to reconstruct the parameter sets
 
     def setup(self):
-        if self.backbone == 'edsr-baseline':
-            self.encoder = EDSR(None, num_blocks=16, num_feats=64)
-        elif self.backbone == 'rdn':
-            self.encoder = RDN()
-        elif self.backbone == 'swin-ir':
-            self.encoder = SwinIR()
-        else:
-            raise NotImplementedError(self.backbone)
-
         # setup the tail
         refine_layers = []
-        current_size = self.tail_blocks[0][0]
-        for block_def in self.tail_blocks:
-            if block_def[0] != current_size:
-                refine_layers.append(Projection(block_def[0]))
-            refine_layers.append(ConvNeXtBlock(*block_def))
-            current_size = block_def[0]
+        if len(self.tail_blocks):
+            current_size = self.tail_blocks[0][0]
+            for block_def in self.tail_blocks:
+                if block_def[0] != current_size:
+                    refine_layers.append(Projection(block_def[0]))
+                refine_layers.append(ConvNeXtBlock(*block_def))
+                current_size = block_def[0]
 
-        self.refine = nn.Sequential(refine_layers)
+        self.refine = nn.Sequential(refine_layers) if len(refine_layers) else lambda x: x
 
         # one layer 1x1 conv to calculate field params, as in SIREN paper
         output_size = sum(math.prod(s) for s in self.output_params_shape)

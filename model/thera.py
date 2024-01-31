@@ -6,6 +6,9 @@ import jax.numpy as jnp
 import flax.linen as nn
 from jaxtyping import Array, ArrayLike, PyTree
 
+from .edsr import EDSR
+from .rdn import RDN
+from .swin_ir import SwinIR
 from .hyper import Hypernetwork
 from .init import uniform_between, linear_up
 from utils import make_grid, interpolate_grid, repeat_vmap
@@ -52,7 +55,7 @@ class Thera:
             self,
             hidden_dim: int,
             out_dim: int,
-            backbone: str,
+            backbone: nn.Module,
             tail_blocks: list = None,
             k_init: float = None,
             components_init_scale: float = None
@@ -173,4 +176,13 @@ def build_thera(
     else:
         raise NotImplementedError('Size ' + size)
 
-    return Thera(hidden_dim, out_dim, backbone, tail_blocks, k_init, components_init_scale)
+    if backbone == 'edsr-baseline':
+        backbone_module = EDSR(None, num_blocks=16, num_feats=64)
+    elif backbone == 'rdn':
+        backbone_module = RDN()
+    elif backbone == 'swin-ir':
+        backbone_module = SwinIR()
+    else:
+        raise NotImplementedError(backbone)
+
+    return Thera(hidden_dim, out_dim, backbone_module, tail_blocks, k_init, components_init_scale)
