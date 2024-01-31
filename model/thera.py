@@ -113,10 +113,12 @@ class Thera:
             params, encoding, coords, method=self.hypernet.get_params_at_coords)
 
         # create local coordinate systems
-        source_grid = jnp.asarray(make_grid(encoding.shape[-2]))
+        source_grid = jnp.asarray(make_grid(encoding.shape[-3:-1]))
         source_coords = jnp.tile(source_grid, (encoding.shape[0], 1, 1, 1))
         interp_coords = interpolate_grid(coords, source_coords)
-        rel_coords = (coords - interp_coords) * encoding.shape[-2]
+        rel_coords = (coords - interp_coords)
+        rel_coords = rel_coords.at[..., 0].set(rel_coords[..., 0] * encoding.shape[-3])
+        rel_coords = rel_coords.at[..., 1].set(rel_coords[..., 1] * encoding.shape[-2])
 
         # three maps over params, coords; one over t; dont map k and components
         in_axes = [(0, 0, None, None, None), (0, 0, None, None, None), (0, 0, 0, None, None)]
