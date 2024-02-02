@@ -71,12 +71,12 @@ def main(args: Namespace):
 def parse_args() -> Namespace:
     parser = ArgumentParser()
     # TODO target size option
-    parser.add_argument('in_file', type=str)
+    parser.add_argument('in_file')
     parser.add_argument('out_file')
     parser.add_argument('--scale', type=float, help='Scale factor for super-resolution')
-    parser.add_argument('--checkpoint', type=str)
-    parser.add_argument('--backbone', type=str, default='edsr-baseline')
-    parser.add_argument('--size', type=str, default='M')
+    parser.add_argument('--checkpoint')
+    parser.add_argument('--backbone', default='edsr-baseline')
+    parser.add_argument('--size', default='M')
     parser.add_argument('--geo-ensemble', action='store_true')
     return parser.parse_args()
 
