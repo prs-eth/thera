@@ -48,9 +48,6 @@ def evaluate(val_loader, model, params, scale, border_crop,
 
     metrics = defaultdict(list)
     for i_img, target in enumerate(tqdm(val_loader)):
-        #if i_img == 5:
-        #    break
-
         source, source_up, target_t, target = prepare_batch(target, scale)
 
         # memory scales in patch_size * scale, so we keep that factor constant
@@ -58,7 +55,6 @@ def evaluate(val_loader, model, params, scale, border_crop,
         if patch_size > min(source.shape[1:3]):
             patch_size = min(source.shape[1:3])
 
-        # TODO support irregular grid
         target_coords = jnp.tile(make_grid(patch_size * scale), (target.shape[0], 1, 1, 1))
 
         outs = []
@@ -82,7 +78,7 @@ def evaluate(val_loader, model, params, scale, border_crop,
                 out_p = apply_decoder(params, encoding_p, target_coords, target_t)
                 out[:, scale * h_min:scale * h_max, scale * w_min:scale * w_max, :] = out_p
 
-            assert(not np.isnan(out).any())
+            assert not np.isnan(out).any()
             out = out * np.sqrt(VAR)[None, None, None] + MEAN[None, None, None]
             out += source_up_
             outs.append(np.rot90(out, k=i_rot, axes=(-2, -3)))
@@ -111,7 +107,7 @@ def main(args):
 
     model = build_thera(3, args.backbone, args.size)
 
-    with open(args.checkpoint_path, 'rb') as fh:
+    with open(args.checkpoint, 'rb') as fh:
         params = pickle.load(fh)['model']
 
     for eval_set, data_loader in zip(args.eval_sets, data_loaders):
@@ -121,7 +117,7 @@ def main(args):
                 if args.save_dir else None
 
             metrics = evaluate(data_loader, model, params, scale, border_crop,
-                args.geo_ensemble, save_dir, args.y_only)
+                not args.no_geo_ensemble, save_dir, args.y_only)
 
             # TODO 2 digits
             metrics = {k: np.round(v, 5) for k, v in metrics.items()}

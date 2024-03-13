@@ -39,7 +39,7 @@ parser.add_argument('--tag', type=str, default='', help='Tag to append to checkp
 # for evaluation only
 parser.add_argument('--save-dir', type=str, default=None)
 parser.add_argument('--eval-sets', type=str, nargs='+', default=['DIV2K_test'])
-parser.add_argument('--checkpoint-path', type=str)
+parser.add_argument('--checkpoint', type=str)
 parser.add_argument('--eval-scales', type=int, nargs='+', default=[2, 3, 4, 6, 12, 18, 24, 30])
-parser.add_argument('--geo-ensemble', action='store_true')
+parser.add_argument('--no-geo-ensemble', action='store_true')
 parser.add_argument('--y-only', action='store_true', help='Only evaluate Y channel of YCbCr image')

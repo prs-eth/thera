@@ -58,12 +58,12 @@ def process(source, model, params, scale, do_ensemble=True):
 def main(args: Namespace):
     source = np.asarray(Image.open(args.in_file)) / 255.
 
-    model = build_thera(3, args.backbone, args.size)
+    model = build_thera(3, args.backbone, args.model_size)
 
     with open(args.checkpoint, 'rb') as fh:
         params = pickle.load(fh)['model']
 
-    out = process(source, model, params, args.scale, args.geo_ensemble)
+    out = process(source, model, params, args.scale, not args.no_ensemble)
 
     Image.fromarray(np.asarray(out)).save(args.out_file)
 
@@ -76,8 +76,8 @@ def parse_args() -> Namespace:
     parser.add_argument('--scale', type=float, help='Scale factor for super-resolution')
     parser.add_argument('--checkpoint')
     parser.add_argument('--backbone', default='edsr-baseline')
-    parser.add_argument('--size', default='M')
-    parser.add_argument('--geo-ensemble', action='store_true')
+    parser.add_argument('--model-size', default='M')
+    parser.add_argument('--no-ensemble', action='store_true', help='Do not geo-ensemble')
     return parser.parse_args()
 
 

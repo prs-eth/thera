@@ -47,9 +47,6 @@ class TheraField(nn.Module):
 
 
 class Thera:
-    """
-    TODO docstring
-    """
 
     def __init__(
             self,
