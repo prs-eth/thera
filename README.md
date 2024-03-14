@@ -6,9 +6,10 @@ Alexander Becker*, Rodrigo Daudt*, Nando Metzger, Jan Dirk Wegner, Konrad Schind
 [![Paper](https://img.shields.io/badge/arXiv-PDF-b31b1b)](https://arxiv.org/abs/2311.17643)
 [![License](https://img.shields.io/badge/License-Apache--2.0-929292)](https://www.apache.org/licenses/LICENSE-2.0)
 
-### TODO dark mode version of teaser
-![Teaser](assets/teaser_light.png#gh-dark-mode-only)
-![Teaser](assets/teaser_light.png#gh-light-mode-only)
+<p align="center">
+  <img src="assets/teaser_light.png#gh-dark-mode-only" alt="teaser" width=85%"/>
+  <img src="assets/teaser_light.png#gh-light-mode-only" alt="teaser" width=85%"/>
+</p>
 
 ## Setup environment
 You need a Python 3.10 environment (e.g., installed via conda) on Linux as well as an NVIDIA GPU (or cloud TPU). Then install packages via pip:
