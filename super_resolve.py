@@ -63,21 +63,21 @@ def main(args: Namespace):
     with open(args.checkpoint, 'rb') as fh:
         params = pickle.load(fh)['model']
 
-    out = process(source, model, params, args.scale, not args.no_ensemble)
+    out = process(source, model, params, args.scale, args.ensemble)
 
     Image.fromarray(np.asarray(out)).save(args.out_file)
 
 
 def parse_args() -> Namespace:
     parser = ArgumentParser()
-    # TODO target size option
     parser.add_argument('in_file')
     parser.add_argument('out_file')
     parser.add_argument('--scale', type=float, help='Scale factor for super-resolution')
-    parser.add_argument('--checkpoint')
-    parser.add_argument('--backbone', default='edsr-baseline')
-    parser.add_argument('--model-size', default='M')
-    parser.add_argument('--no-ensemble', action='store_true', help='Do not geo-ensemble')
+    parser.add_argument('--checkpoint', help='Path to checkpoint file')
+    parser.add_argument('--backbone', default='edsr-baseline',
+                        choices=['edsr-baseline', 'rdn', 'swin-ir'])
+    parser.add_argument('--model-size', default='M', choices=['S', 'M', 'L'])
+    parser.add_argument('--ensemble', action='store_true', help='Enable geo-ensemble')
     return parser.parse_args()
 
 
