@@ -47,9 +47,9 @@ Train and evaluate using
 Check the arguments in `args.py` for all training options. Our implementation will automatically shard over all available devices, this can be overwritten by manually setting `--n-devices` or `CUDA_VISIBLE_DEVICES`.
 
 ## Useful XLA flags
-* Disable pre-allocation of entire VRAM: XLA_PYTHON_CLIENT_PREALLOCATE=false
-* Force GPU determinism (slow): XLA_FLAGS=--xla_gpu_deterministic_ops=true
-* Disable jitting for debugging: JAX_DISABLE_JIT=1
+* Disable pre-allocation of entire VRAM: `XLA_PYTHON_CLIENT_PREALLOCATE=false`
+* Force GPU determinism (slow): `XLA_FLAGS=--xla_gpu_deterministic_ops=true`
+* Disable jitting for debugging: `JAX_DISABLE_JIT=1`
 
 ## Citation
 
