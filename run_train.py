@@ -101,7 +101,7 @@ def train(train_loader, val_loader, model, params, optimizer, args):
             train_metrics = defaultdict(list)
 
         if (i % args.save_every == 0 and i > 0) or i == args.n_iter - 1:
-            with open(args.checkpoint_path, 'wb') as fh:
+            with open(args.checkpoint, 'wb') as fh:
                 pickle.dump({
                     'model': jax.device_get(tree_map(lambda x: x[0], params)),
                     'optimizer': jax.device_get(tree_map(lambda x: x[0], opt_state))
@@ -131,8 +131,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     # append checkpoint path to config values
     timestamp = datetime.now().strftime('%y%m%d%H%M%S')
-    args.checkpoint_path = Path(args.wandb_dir) / (f'params_latest_{timestamp}' +
-                                                   (f'-{args.tag}.pkl' if args.tag else '.pkl'))
+    args.checkpoint = Path(args.wandb_dir) / \
+        (f'params_latest_{timestamp}' + (f'-{args.tag}.pkl' if args.tag else '.pkl'))
     print(parser.format_values())
 
     main(args)
