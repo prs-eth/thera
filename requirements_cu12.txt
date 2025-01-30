@@ -2,17 +2,17 @@
 # torch-cpu is sufficient since we only use it for data loading
 --extra-index-url https://download.pytorch.org/whl/cpu
 
-jax[cuda12_pip]==0.4.11
-ml-dtypes==0.1.0
-jaxtyping==0.2.20
-optax==0.1.5
-flax==0.6.10
+jax[cuda12]
+ml-dtypes
+jaxtyping
+optax
+flax
 torch==2.0.1+cpu
 torchvision==0.15.2+cpu
-einops==0.6.1
-pillow==9.3.0
-tqdm==4.65.0
-numpy==1.24.1
-wandb==0.15.*
+einops
+pillow
+tqdm
+numpy
+wandb
 configargparse==1.7
-scipy==1.10.*
+scipy
