@@ -29,8 +29,8 @@ parser.add_argument('--init-scale', type=float, default=16.0)
 parser.add_argument('--size', type=str, default='L')
 
 parser.add_argument('--data-dir', type=str, required=True)
-parser.add_argument('--train-set', type=str, default='DIV2K_trainval')
-parser.add_argument('--val-set', type=str, default='DIV2K_val')
+parser.add_argument('--train-set', type=str, default='DIV2K_train')
+parser.add_argument('--val-set', type=str, default='DIV2K_train')
 parser.add_argument('--no-wandb', action='store_true')
 parser.add_argument('--wandb-project', type=str, default='thera')
 parser.add_argument('--wandb-dir', type=str, default='../logs')
@@ -38,7 +38,7 @@ parser.add_argument('--tag', type=str, default='', help='Tag to append to checkp
 
 # for evaluation only
 parser.add_argument('--save-dir', type=str, default=None)
-parser.add_argument('--eval-sets', type=str, nargs='+', default=['DIV2K_test'])
+parser.add_argument('--eval-sets', type=str, nargs='+', default=['DIV2K_val'])
 parser.add_argument('--checkpoint', type=str)
 parser.add_argument('--eval-scales', type=int, nargs='+', default=[2, 3, 4, 6, 12, 18, 24, 30])
 parser.add_argument('--no-geo-ensemble', action='store_true')
