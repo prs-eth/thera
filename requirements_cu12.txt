@@ -12,6 +12,7 @@ torchvision==0.15.2+cpu
 einops
 pillow
 tqdm
+numpy==1.*
 wandb
 configargparse==1.7
 scipy
