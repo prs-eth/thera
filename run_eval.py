@@ -26,7 +26,7 @@ MAX_PATCH_SIZE = 256
 
 
 def prepare_batch(target, scale):
-    target = jnp.asarray(target)
+    target = jnp.asarray(target, dtype=jnp.float32)
     target = target.transpose((0, 2, 3, 1))
 
     source_h, source_w = int(target.shape[1] / scale), int(target.shape[2] / scale)
@@ -101,8 +101,7 @@ def evaluate(val_loader, model, params, scale, border_crop,
 
 
 def main(args):
-    data_sets = [ImageFolder(Path(args.data_dir) / s, transforms.ToTensor(), in_memory=False)
-                 for s in args.eval_sets]
+    data_sets = [ImageFolder(Path(args.data_dir) / s, in_memory=False) for s in args.eval_sets]
     data_loaders = [DataLoader(s, batch_size=1, num_workers=0, shuffle=False) for s in data_sets]
 
     model = build_thera(3, args.backbone, args.size)
