@@ -17,17 +17,19 @@ INTERP_MODE = 'bicubic'
 TARGET_SIZE = 48
 
 
+def to_uint8_tensor(image: Image):
+    return torch.from_numpy(np.array(image)).permute(2, 0, 1)
+
+
 class ImageFolder(Dataset):
 
     def open(self, path):
         with open(str(path), "rb") as f:
             img = Image.open(f).convert("RGB")
-        if self.transform is not None:
-            img = self.transform(img)
+            img = to_uint8_tensor(img)
         return img
 
-    def __init__(self, root: Path, transform, in_memory=True):
-        self.transform = transform
+    def __init__(self, root: Path, in_memory=True):
         self.in_memory = in_memory
         self.items = []
 
@@ -80,6 +82,7 @@ class ArbitraryScaleWrapper(Dataset):
         # source will always be self.source_size**2, target size is determined by scale factor
         # TODO the `min` should not be necessary
         target = RandomCrop(min(int(self.source_size * scale * augment_scale), min_shape))(image)
+        target = target.float()
         target_size = max(int(target.shape[-1] / augment_scale), self.source_size)
         if augment_scale != 1:
             target = pil_resize(target, (target_size, target_size))
@@ -122,8 +125,7 @@ def make_data_loaders(args: Namespace):
         transforms.RandomVerticalFlip(p=0.5),
         RandomRotate([0, 90, 180, 270])
     ])
-    data_sets = [ImageFolder(Path(args.data_dir) / s, transform=transforms.ToTensor())
-                 for s in (args.train_set, args.val_set)]
+    data_sets = [ImageFolder(Path(args.data_dir) / s) for s in (args.train_set, args.val_set)]
     data_sets = [ArbitraryScaleWrapper(ds, args.patch_size, args.scale_range, args.augment_scale_range,
                                        args.augment_scale_prob, transform) for ds in data_sets]
 
