@@ -120,6 +120,7 @@ def main(args):
     sample_source = next(iter(data_loaders[0]))['source']
     model = build_thera(3, args.backbone, args.size, args.init_k, args.init_scale)
     params = model.init(jax.random.PRNGKey(args.seed), sample_source)
+    print(f'# parameters: {sum(p.size for p in jax.tree_leaves(params))}')
 
     schedule = optax.cosine_decay_schedule(init_value=args.lr, decay_steps=args.n_iter)
     optimizer = optax.chain(optax.clip_by_global_norm(args.max_grad_norm), optax.adamw(schedule))

@@ -6,6 +6,7 @@ import flax.linen as nn
 from jaxtyping import Array, ArrayLike, PyTreeDef
 import numpy as np
 
+from model.swin_ir import SwinIR
 from utils import interpolate_grid
 
 
@@ -50,6 +51,7 @@ class Hypernetwork(nn.Module):
 
     def setup(self):
         # setup the tail
+        """
         refine_layers = []
         if len(self.tail_blocks):
             current_size = self.tail_blocks[0][0]
@@ -60,6 +62,8 @@ class Hypernetwork(nn.Module):
                 current_size = block_def[0]
 
         self.refine = nn.Sequential(refine_layers) if len(refine_layers) else lambda x: x
+        """
+        self.refine = SwinIR(depths=[6], num_heads=[6])
 
         # one layer 1x1 conv to calculate field params, as in SIREN paper
         output_size = sum(math.prod(s) for s in self.output_params_shape)
@@ -67,7 +71,7 @@ class Hypernetwork(nn.Module):
 
     def get_encoding(self, source: ArrayLike, training=False) -> Array:
         """Convenience method for whole-image evaluation"""
-        return self.refine(self.encoder(source, training))
+        return self.refine(self.encoder(source, training), training)
 
     def get_params_at_coords(self, encoding: ArrayLike, coords: ArrayLike) -> Array:
         encoding = interpolate_grid(coords, encoding)
