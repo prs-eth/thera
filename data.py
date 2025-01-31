@@ -82,7 +82,7 @@ class ArbitraryScaleWrapper(Dataset):
         # source will always be self.source_size**2, target size is determined by scale factor
         # TODO the `min` should not be necessary
         target = RandomCrop(min(int(self.source_size * scale * augment_scale), min_shape))(image)
-        target = target.float()
+        target = target.float() / 255.
         target_size = max(int(target.shape[-1] / augment_scale), self.source_size)
         if augment_scale != 1:
             target = pil_resize(target, (target_size, target_size))
