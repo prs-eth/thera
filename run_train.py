@@ -125,6 +125,11 @@ def main(args):
     optimizer = optax.chain(optax.clip_by_global_norm(args.max_grad_norm), optax.adamw(schedule))
 
     train(*data_loaders, model, params, optimizer, args)
+    for l in data_loaders:
+        del l
+    del model
+    del params
+    del optimizer
 
 
 if __name__ == '__main__':
