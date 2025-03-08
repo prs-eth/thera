@@ -1,0 +1,18 @@
+-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+# torch-cpu is sufficient since we only use it for data loading
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+jax[cuda12]
+ml-dtypes
+jaxtyping
+optax
+flax
+torch==2.0.1+cpu
+torchvision==0.15.2+cpu
+einops
+pillow
+tqdm
+numpy==1.*
+wandb
+configargparse==1.7
+scipy
