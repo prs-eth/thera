@@ -5,7 +5,8 @@ import jax
 parser = configargparse.ArgumentParser()
 parser.add_argument('-c', '--config', is_config_file=True, type=str)
 
-parser.add_argument('--backbone', type=str, default='edsr-baseline')
+parser.add_argument('--backbone', default='edsr-baseline', choices=['edsr-baseline', 'rdn'])
+parser.add_argument('--model-size', default='plus', choices=['air', 'plus'])
 parser.add_argument('--data-dir', type=str, required=True)
 parser.add_argument('--save-dir', type=str, default=None)
 parser.add_argument('--eval-sets', type=str, nargs='+', default=['DIV2K_val'])

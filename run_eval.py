@@ -105,7 +105,7 @@ def main(args):
                  for s in args.eval_sets]
     data_loaders = [DataLoader(s, batch_size=1, num_workers=0, shuffle=False) for s in data_sets]
 
-    model = build_thera(3, args.backbone, args.size)
+    model = build_thera(3, args.backbone, args.model_size)
 
     with open(args.checkpoint, 'rb') as fh:
         params = pickle.load(fh)['model']
