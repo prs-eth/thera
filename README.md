@@ -5,7 +5,7 @@ Official implementation of the paper by Alexander Becker*, Rodrigo Daudt*, Domin
 [![License](https://img.shields.io/badge/License-Apache--2.0-929292)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## Setup
-You need a Python 3.10 environment (e.g., installed via conda) on Linux as well as an NVIDIA GPU (or cloud TPU). Then install packages via pip:
+You need a Python 3.10 environment (e.g., installed via conda) on Linux as well as an NVIDIA GPU. Then install packages via pip:
 ```bash
 > pip install --upgrade pip
 > pip install -r requirements.txt
