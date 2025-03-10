@@ -1,6 +1,6 @@
 # Thera: Aliasing-Free Arbitrary-Scale Super-Resolution with Neural Heat Fields
 
-Official implementation of the paper by Alexander Becker*, Rodrigo Daudt*, Dominik Narnhofer, Torben Peters, Nando Metzger, Jan Dirk Wegner, Konrad Schindler (* equal contribution)
+Official implementation of the paper by Alexander Becker*, Rodrigo Daudt*, Dominik Narnhofer, Torben Peters, Nando Metzger, Jan Dirk Wegner and Konrad Schindler (* equal contribution)
 
 [![License](https://img.shields.io/badge/License-Apache--2.0-929292)](https://www.apache.org/licenses/LICENSE-2.0)
 
