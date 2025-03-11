@@ -3,11 +3,15 @@
 Official implementation of the paper by Alexander Becker*, Rodrigo Daudt*, Dominik Narnhofer, Torben Peters, Nando Metzger, Jan Dirk Wegner and Konrad Schindler (* equal contribution)
 
 [![Paper](https://img.shields.io/badge/arXiv-PDF-b31b1b)](https://arxiv.org/abs/2311.17643)
+[![Page](https://img.shields.io/badge/Project-Page-green)](https://therasr.github.io)
 [![License](https://img.shields.io/badge/License-Apache--2.0-929292)](https://www.apache.org/licenses/LICENSE-2.0)
 
 <p align="center">
   <img src="assets/teaser_dark.svg#gh-dark-mode-only" alt="teaser" width=98%"/>
   <img src="assets/teaser_light.svg#gh-light-mode-only" alt="teaser" width=98%"/>
+</p>
+<p align="center">
+  <emph>Thera</emph> is the first arbitrary-scale super-resolution method with a built-in physical observation model.
 </p>
 
 ## Setup environment
