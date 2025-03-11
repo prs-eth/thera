@@ -27,13 +27,13 @@ You need a Python 3.10 environment (e.g., installed via conda) on Linux as well 
 
 Super-resolve any image with:
 ```bash
-> ./super_resolve.py IN_FILE OUT_FILE --scale 3.14 --checkpoint checkpoints/thera-pro-edsr-baseline.pkl
+> ./super_resolve.py IN_FILE OUT_FILE --scale 3.14 --checkpoint thera-rdn-pro.pkl
 ```
 
 You can evaluate the models on datasets using the `run_eval.py` script, e.g.:
 
 ```bash
-> python run_eval.py --checkpoint checkpoints/thera-plus-edsr-baseline.pkl --data-dir path_to_data_parent_folder --eval-sets data_folder_1, data_folder_2, ...
+> python run_eval.py --checkpoint thera-rdn-pro.pkl --data-dir path_to_data_parent_folder --eval-sets data_folder_1 data_folder_2 ...
 ```
 
 Check the arguments in `args.py` (bottom of file) for all testing options.
@@ -43,7 +43,6 @@ Check the arguments in `args.py` (bottom of file) for all testing options.
 
 ## Useful XLA flags
 * Disable pre-allocation of entire VRAM: `XLA_PYTHON_CLIENT_PREALLOCATE=false`
-* Force GPU determinism (slow): `XLA_FLAGS=--xla_gpu_deterministic_ops=true`
 * Disable jitting for debugging: `JAX_DISABLE_JIT=1`
 
 ## Citation
