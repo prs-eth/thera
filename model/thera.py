@@ -9,6 +9,7 @@ from jaxtyping import Array, ArrayLike, PyTree
 from .edsr import EDSR
 from .rdn import RDN
 from .hyper import Hypernetwork
+from .tail import build_tail
 from .init import uniform_between, linear_up
 from utils import make_grid, interpolate_grid, repeat_vmap
 
@@ -52,7 +53,7 @@ class Thera:
             hidden_dim: int,
             out_dim: int,
             backbone: nn.Module,
-            tail_blocks: list = None,
+            tail: nn.Module,
             k_init: float = None,
             components_init_scale: float = None
     ):
@@ -70,7 +71,7 @@ class Thera:
         sample_params_flat, tree_def = jax.tree_util.tree_flatten(sample_params)
         param_shapes = [p.shape for p in sample_params_flat]
 
-        self.hypernet = Hypernetwork(backbone, tail_blocks, param_shapes, tree_def)
+        self.hypernet = Hypernetwork(backbone, tail, param_shapes, tree_def)
 
     def init(self, key, sample_source) -> PyTree:
         keys = jax.random.split(key, 2)
@@ -160,14 +161,7 @@ def build_thera(
     """
     Convenience function for building the three Thera sizes described in the paper.
     """
-    if size == 'air':
-        hidden_dim = 32
-        tail_blocks = []
-    elif size == 'plus':
-        hidden_dim = 512
-        tail_blocks = [(64, 3, True)] * 6 + [(96, 3, True)] * 7 + [(128, 3, True)] * 3
-    else:
-        raise NotImplementedError('Size ' + size)
+    hidden_dim = 32 if size == 'air' else 512
 
     if backbone == 'edsr-baseline':
         backbone_module = EDSR(None, num_blocks=16, num_feats=64)
@@ -176,4 +170,6 @@ def build_thera(
     else:
         raise NotImplementedError(backbone)
 
-    return Thera(hidden_dim, out_dim, backbone_module, tail_blocks, k_init, components_init_scale)
+    tail_module = build_tail(size)
+
+    return Thera(hidden_dim, out_dim, backbone_module, tail_module, k_init, components_init_scale)

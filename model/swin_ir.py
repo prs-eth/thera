@@ -493,9 +493,9 @@ class SwinIR(nn.Module):
         x_size = (h, w)
         x = PatchEmbed(self.norm_layer if self.patch_norm else None)(x)
 
-        absolute_pos_embed = \
-            self.param('ape', trunc_normal(std=.02), (1, num_patches, self.embed_dim))
         if self.ape:
+            absolute_pos_embed = \
+                self.param('ape', trunc_normal(std=.02), (1, num_patches, self.embed_dim))
             x = x + absolute_pos_embed
 
         x = nn.Dropout(self.drop_rate, deterministic=not training)(x)

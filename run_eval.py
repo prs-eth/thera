@@ -105,10 +105,11 @@ def main(args):
                  for s in args.eval_sets]
     data_loaders = [DataLoader(s, batch_size=1, num_workers=0, shuffle=False) for s in data_sets]
 
-    model = build_thera(3, args.backbone, args.model_size)
-
     with open(args.checkpoint, 'rb') as fh:
-        params = pickle.load(fh)['model']
+        check = pickle.load(fh)
+        params, backbone, size = check['model'], check['backbone'], check['size']
+
+    model = build_thera(3, backbone, size)
 
     for eval_set, data_loader in zip(args.eval_sets, data_loaders):
         for scale in args.eval_scales:
@@ -119,7 +120,6 @@ def main(args):
             metrics = evaluate(data_loader, model, params, scale, border_crop,
                 not args.no_geo_ensemble, save_dir, args.y_only)
 
-            # TODO 2 digits
             metrics = {k: np.round(v, 5) for k, v in metrics.items()}
             print(f'[{eval_set} x{scale}] ' + ' '.join([f'{k}: {v}' for k, v in metrics.items()]))
 
