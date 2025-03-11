@@ -4,8 +4,10 @@ from functools import partial
 import jax
 import jax.numpy as jnp
 import jax.scipy as jsp
+from jaxtyping import Array, ArrayLike
 import torch
-from torchvision.transforms import functional as f
+import torch.nn.functional as f
+from torchvision.transforms import functional as vf
 from torchvision import transforms
 import numpy as np
 from PIL import Image
@@ -57,6 +59,22 @@ def interpolate_grid(coords, grid, order=0):
     return jax.vmap(jax.vmap(map_coordinates, in_axes=(2, None), out_axes=2))(grid, coords)
 
 
+def nearest_exact(x: ArrayLike, shape: tuple) -> Array:
+    """
+    Performs nearest-exact interpolation on a jax array
+    using torch.functional.interpolate. This is required
+    since we had problems with jax.image.resize being
+    nondeterministic when new pixel centers are located exactly 
+    between two pixels.
+    """
+    x = f.interpolate(
+        torch.from_numpy(np.array(x)).permute(0, 3, 1, 2), 
+        shape, 
+        mode='nearest-exact'
+    ).permute(0, 2, 3, 1).numpy()
+    return x
+
+
 class RandomRotate:
     """https://pytorch.org/vision/main/transforms.html"""
 
@@ -65,7 +83,7 @@ class RandomRotate:
 
     def __call__(self, x):
         angle = random.choice(self.angles)
-        return f.rotate(x, angle)
+        return vf.rotate(x, angle)
 
 
 def pil_resize(img, size):

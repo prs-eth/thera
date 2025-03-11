@@ -11,7 +11,7 @@ import numpy as np
 from PIL import Image
 
 from model import build_thera
-from utils import make_grid
+from utils import make_grid, nearest_exact
 
 MEAN = jnp.array([.4488, .4371, .4040])
 VAR = jnp.array([.25, .25, .25])
@@ -23,9 +23,7 @@ def process(source, model, params, scale, do_ensemble=True):
         round(source.shape[0] * scale),
         round(source.shape[1] * scale),
         source.shape[2])
-    with jax.disable_jit():  # resize behaves differently under jit for some non-int factors
-        source_up = resize(source, target_shape, 'nearest')[None]
-    source = jax.nn.standardize(source, mean=MEAN, variance=VAR)[None]
+
     t = jnp.float32((target_shape[0] / source.shape[1])**-2)[None]
 
     apply_encoder = jit(model.apply_encoder)
@@ -34,7 +32,9 @@ def process(source, model, params, scale, do_ensemble=True):
     outs = []
     for i_rot in range(4 if do_ensemble else 1):
         source_ = jnp.rot90(source, k=i_rot, axes=(-3, -2))
-        source_up_ = jnp.rot90(source_up, k=i_rot, axes=(-3, -2))
+        source_up_ = nearest_exact(source_[None], target_shape[:2])
+        source_ = jax.nn.standardize(source_, mean=MEAN, variance=VAR)[None]
+        
         encoding = apply_encoder(params, source_)
         coords = jnp.asarray(make_grid(source_up_.shape[1:3])[None])  # global target coords
         out = jnp.full_like(source_up_, jnp.nan, dtype=jnp.float32)
