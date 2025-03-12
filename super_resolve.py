@@ -6,7 +6,6 @@ import pickle
 import jax
 from jax import jit
 import jax.numpy as jnp
-from jax.image import resize
 import numpy as np
 from PIL import Image
 

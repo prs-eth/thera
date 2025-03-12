@@ -31,4 +31,5 @@ torchmetrics==1.2.0
 torchvision==0.15.2+cpu
 tqdm==4.65.0
 transformers==4.46.3
+Pillow==10.0.0
 wandb
