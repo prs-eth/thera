@@ -17,12 +17,7 @@ VAR = jnp.array([.25, .25, .25])
 PATCH_SIZE = 256
 
 
-def process(source, model, params, scale, do_ensemble=True):
-    target_shape = (
-        round(source.shape[0] * scale),
-        round(source.shape[1] * scale),
-        source.shape[2])
-
+def process(source, model, params, target_shape, do_ensemble=True):
     t = jnp.float32((target_shape[0] / source.shape[1])**-2)[None]
     coords_nearest = jnp.asarray(make_grid(target_shape)[None])
 
@@ -59,13 +54,25 @@ def process(source, model, params, scale, do_ensemble=True):
 def main(args: Namespace):
     source = np.asarray(Image.open(args.in_file)) / 255.
 
+    if args.scale is not None:
+        if args.size is not None:
+            raise ValueError('Cannot specify both size and scale')
+        target_shape = (
+            round(source.shape[0] * args.scale),
+            round(source.shape[1] * args.scale),
+        )
+    elif args.size is not None:
+        target_shape = args.size
+    else:
+        raise ValueError('Must specify either size or scale')
+
     with open(args.checkpoint, 'rb') as fh:
         check = pickle.load(fh)
         params, backbone, size = check['model'], check['backbone'], check['size']
 
     model = build_thera(3, backbone, size)
 
-    out = process(source, model, params, args.scale, not args.no_ensemble)
+    out = process(source, model, params, target_shape, not args.no_ensemble)
 
     Image.fromarray(np.asarray(out)).save(args.out_file)
 
@@ -75,6 +82,8 @@ def parse_args() -> Namespace:
     parser.add_argument('in_file')
     parser.add_argument('out_file')
     parser.add_argument('--scale', type=float, help='Scale factor for super-resolution')
+    parser.add_argument('--size', type=int, nargs=2,
+                        help='Target size (h, w), mutually exclusive with --scale')
     parser.add_argument('--checkpoint', help='Path to checkpoint file')
     parser.add_argument('--no-ensemble', action='store_true', help='Disable geo-ensemble')
     return parser.parse_args()
