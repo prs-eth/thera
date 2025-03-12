@@ -10,7 +10,7 @@ import numpy as np
 from PIL import Image
 
 from model import build_thera
-from utils import make_grid, nearest_exact
+from utils import make_grid, interpolate_grid
 
 MEAN = jnp.array([.4488, .4371, .4040])
 VAR = jnp.array([.25, .25, .25])
@@ -24,6 +24,7 @@ def process(source, model, params, scale, do_ensemble=True):
         source.shape[2])
 
     t = jnp.float32((target_shape[0] / source.shape[1])**-2)[None]
+    coords_nearest = jnp.asarray(make_grid(target_shape)[None])
 
     apply_encoder = jit(model.apply_encoder)
     apply_decoder = jit(model.apply_decoder)
@@ -31,7 +32,7 @@ def process(source, model, params, scale, do_ensemble=True):
     outs = []
     for i_rot in range(4 if do_ensemble else 1):
         source_ = jnp.rot90(source, k=i_rot, axes=(-3, -2))
-        source_up_ = nearest_exact(source_[None], target_shape[:2])
+        source_up_ = interpolate_grid(coords_nearest, source_[None])
         source_ = jax.nn.standardize(source_, mean=MEAN, variance=VAR)[None]
         
         encoding = apply_encoder(params, source_)
