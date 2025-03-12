@@ -14,6 +14,9 @@ Official implementation of the paper by Alexander Becker*, Rodrigo Daudt*, Domin
   <emph>Thera</emph> is the first arbitrary-scale super-resolution method with a built-in physical observation model.
 </p>
 
+## News
+**2025-03-12**: Pre-trained checkpoints are released
+
 ## Setup environment
 You need a Python 3.10 environment (e.g., installed via conda) on Linux as well as an NVIDIA GPU. Then install packages via pip:
 ```bash
@@ -22,7 +25,40 @@ You need a Python 3.10 environment (e.g., installed via conda) on Linux as well 
 ```
 
 ## Use with pre-trained models
-> Checkpoints will be released soon.
+Download checkpoints:
+<table>
+    <tr>
+        <td><strong>Backbone</strong></td>
+        <td><strong>Variant</strong></td>
+        <td><strong>Download</strong></td>
+    </tr>
+    <tr>
+        <td rowspan="3">EDSR-base</td>
+        <td>Air</td>
+        <td><a href="https://drive.google.com/file/d/18_XYU65ZYQuQOrfnlYAoee2KjjUhXuay/view?usp=sharing">Google Drive</a></td>
+    </tr>
+    <tr>
+        <td>Plus</td>
+        <td><a href="https://drive.google.com/file/d/1ydYspibEQUskn67-CTc5IsTysEWsdO8Q/view?usp=sharing">Google Drive</a></td>
+    </tr>
+    <tr>
+        <td>Pro</td>
+        <td><a href="https://drive.google.com/file/d/18slBa-dv-Z6SCTzL65MtmIryksfzdcnE/view?usp=sharing">Google Drive</a></td>
+    </tr>
+    <tr>
+        <td rowspan="3">RDN</td>
+        <td>Air</td>
+        <td><a href="https://drive.google.com/file/d/1EzJaexc_OoxinaLZYXs6BRJMQ1XgZRwO/view?usp=sharing">Google Drive</a></td>
+    </tr>
+    <tr>
+        <td>Plus</td>
+        <td><a href="https://drive.google.com/file/d/1mnn3XUSeWs-yBEpWcXSV7_jep_4nOdSo/view?usp=sharing">Google Drive</a></td>
+    </tr>
+    <tr>
+        <td>Pro</td>
+        <td><a href="https://drive.google.com/file/d/1h6MPs6HSx5kVx3m703gZNbE-d5EMV5CD/view?usp=sharing">Google Drive</a></td>
+    </tr>
+</table>
 
 
 Super-resolve any image with:
