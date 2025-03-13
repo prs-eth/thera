@@ -4,10 +4,8 @@ from functools import partial
 import jax
 import jax.numpy as jnp
 import jax.scipy as jsp
-from jaxtyping import Array, ArrayLike
 import torch
-import torch.nn.functional as f
-from torchvision.transforms import functional as vf
+from torchvision.transforms import functional as f
 from torchvision import transforms
 import numpy as np
 from PIL import Image
@@ -67,7 +65,7 @@ class RandomRotate:
 
     def __call__(self, x):
         angle = random.choice(self.angles)
-        return vf.rotate(x, angle)
+        return f.rotate(x, angle)
 
 
 def pil_resize(img, size):
