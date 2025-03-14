@@ -83,4 +83,13 @@ Check the arguments in `args.py` (bottom of file) for all testing options.
 
 ## Citation
 
-> Citation coming soon.
+If you found our work helpful, consider citing our paper 😊:
+
+```
+@article{becker2025thera,
+  title={Thera: Aliasing-Free Arbitrary-Scale Super-Resolution with Neural Heat Fields},
+  author={Becker, Alexander and Daudt, Rodrigo Caye and Narnhofer, Dominik and Peters, Torben and Metzger, Nando and Wegner, Jan Dirk and Schindler, Konrad},
+  journal={arXiv preprint arXiv:2311.17643},
+  year={2025}
+}
+```
