@@ -1,11 +1,20 @@
+<div align="center">
+  
 # Thera: Aliasing-Free Arbitrary-Scale Super-Resolution with Neural Heat Fields
 
-Official implementation of the paper by Alexander Becker*, Rodrigo Daudt*, Dominik Narnhofer, Torben Peters, Nando Metzger, Jan Dirk Wegner and Konrad Schindler (* equal contribution)
+**Alexander Becker<sup>❄️🔥</sup>, Rodrigo Daudt<sup>❄️🔥</sup>, Dominik Narnhofer<sup>🔥</sup>, Torben Peters<sup>🔥</sup>, Nando Metzger<sup>🔥</sup>, Jan Dirk Wegner<sup>🌶️</sup>, Konrad Schindler<sup>🔥</sup>**  
+<br>
+<sup>❄️</sup> Equal contribution  
+<sup>🔥</sup> Photogrammetry and Remote Sensing, ETH Zurich  
+<sup>🌶️</sup> Department of Mathematical Modeling and Machine Learning, University of Zurich  
+
 
 [![Paper](https://img.shields.io/badge/arXiv-PDF-b31b1b)](https://arxiv.org/abs/2311.17643)
 [![Page](https://img.shields.io/badge/Project-Page-green)](https://therasr.github.io)
 [![Hugging Face Space](https://img.shields.io/badge/🤗%20Hugging%20Face-Space-yellow)](https://huggingface.co/spaces/prs-eth/thera)
 [![License](https://img.shields.io/badge/License-Apache--2.0-929292)](https://www.apache.org/licenses/LICENSE-2.0)
+</div>
+
 
 <p align="center">
   <img src="assets/teaser_dark.svg#gh-dark-mode-only" alt="teaser" width=98%"/>
