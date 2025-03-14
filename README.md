@@ -4,6 +4,7 @@ Official implementation of the paper by Alexander Becker*, Rodrigo Daudt*, Domin
 
 [![Paper](https://img.shields.io/badge/arXiv-PDF-b31b1b)](https://arxiv.org/abs/2311.17643)
 [![Page](https://img.shields.io/badge/Project-Page-green)](https://therasr.github.io)
+[![Hugging Face Space](https://img.shields.io/badge/🤗%20Hugging%20Face-Space-yellow)](https://huggingface.co/spaces/prs-eth/thera)
 [![License](https://img.shields.io/badge/License-Apache--2.0-929292)](https://www.apache.org/licenses/LICENSE-2.0)
 
 <p align="center">
@@ -15,6 +16,7 @@ Official implementation of the paper by Alexander Becker*, Rodrigo Daudt*, Domin
 </p>
 
 ## News
+**2025-03-14**: Interactive Hugging Face Space is online<br>
 **2025-03-12**: Pre-trained checkpoints are released
 
 ## Setup environment
