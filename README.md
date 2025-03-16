@@ -84,7 +84,7 @@ You can evaluate the models on datasets using the `run_eval.py` script, e.g.:
 > python run_eval.py --checkpoint thera-rdn-pro.pkl --data-dir path_to_data_parent_folder --eval-sets data_folder_1 data_folder_2 ...
 ```
 
-Check the arguments in `args.py` (bottom of file) for all testing options.
+You can run `python run_eval.py -h` to display all testing options.
 
 ## Training
 > Training code will be released soon.
