@@ -86,6 +86,15 @@ You can evaluate the models on datasets using the `run_eval.py` script, e.g.:
 
 You can run `python run_eval.py -h` to display all testing options.
 
+## Use with interactive Gradio app
+You can also host a local version of our [Hugging Face demo](https://huggingface.co/spaces/prs-eth/thera). To do so, clone the dedicated demo repo:
+
+```bash
+> git clone https://huggingface.co/spaces/prs-eth/thera thera-demo
+```
+
+Instructions for running the demo locally can be found in [the repo's README.md](https://huggingface.co/spaces/prs-eth/thera/blob/main/README.md).
+
 ## Training
 > Training code will be released soon.
 
