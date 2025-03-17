@@ -47,28 +47,28 @@ Download checkpoints:
     <tr>
         <td rowspan="3">EDSR-base</td>
         <td>Air</td>
-        <td><a href="https://huggingface.co/prs-eth/thera-edsr-air">Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/18_XYU65ZYQuQOrfnlYAoee2KjjUhXuay/view?usp=sharing">Google Drive</a></td>
+        <td><a href="https://huggingface.co/prs-eth/thera-edsr-air">🤗 Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/18_XYU65ZYQuQOrfnlYAoee2KjjUhXuay/view?usp=sharing">Google Drive</a></td>
     </tr>
     <tr>
         <td>Plus</td>
-        <td><a href="https://huggingface.co/prs-eth/thera-edsr-plus">Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/1ydYspibEQUskn67-CTc5IsTysEWsdO8Q/view?usp=sharing">Google Drive</a></td>
+        <td><a href="https://huggingface.co/prs-eth/thera-edsr-plus">🤗 Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/1ydYspibEQUskn67-CTc5IsTysEWsdO8Q/view?usp=sharing">Google Drive</a></td>
     </tr>
     <tr>
         <td>Pro</td>
-        <td><a href="https://huggingface.co/prs-eth/thera-edsr-pro">Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/18slBa-dv-Z6SCTzL65MtmIryksfzdcnE/view?usp=sharing">Google Drive</a></td>
+        <td><a href="https://huggingface.co/prs-eth/thera-edsr-pro">🤗 Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/18slBa-dv-Z6SCTzL65MtmIryksfzdcnE/view?usp=sharing">Google Drive</a></td>
     </tr>
     <tr>
         <td rowspan="3">RDN</td>
         <td>Air</td>
-        <td><a href="https://huggingface.co/prs-eth/thera-rdn-air">Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/1EzJaexc_OoxinaLZYXs6BRJMQ1XgZRwO/view?usp=sharing">Google Drive</a></td>
+        <td><a href="https://huggingface.co/prs-eth/thera-rdn-air">🤗 Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/1EzJaexc_OoxinaLZYXs6BRJMQ1XgZRwO/view?usp=sharing">Google Drive</a></td>
     </tr>
     <tr>
         <td>Plus</td>
-        <td><a href="https://huggingface.co/prs-eth/thera-rdn-plus">Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/1mnn3XUSeWs-yBEpWcXSV7_jep_4nOdSo/view?usp=sharing">Google Drive</a></td>
+        <td><a href="https://huggingface.co/prs-eth/thera-rdn-plus">🤗 Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/1mnn3XUSeWs-yBEpWcXSV7_jep_4nOdSo/view?usp=sharing">Google Drive</a></td>
     </tr>
     <tr>
         <td>Pro</td>
-        <td><a href="https://huggingface.co/prs-eth/thera-rdn-pro">Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/1h6MPs6HSx5kVx3m703gZNbE-d5EMV5CD/view?usp=sharing">Google Drive</a></td>
+        <td><a href="https://huggingface.co/prs-eth/thera-rdn-pro">🤗 Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/1h6MPs6HSx5kVx3m703gZNbE-d5EMV5CD/view?usp=sharing">Google Drive</a></td>
     </tr>
 </table>
 
