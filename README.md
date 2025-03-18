@@ -45,7 +45,7 @@ Download checkpoints:
         <td><strong>Download</strong></td>
     </tr>
     <tr>
-        <td rowspan="3">EDSR-base</td>
+        <td rowspan="3">EDSR-baseline</td>
         <td>Air</td>
         <td><a href="https://huggingface.co/prs-eth/thera-edsr-air">🤗 Hugging Face</a> &#124; <a href="https://drive.google.com/file/d/18_XYU65ZYQuQOrfnlYAoee2KjjUhXuay/view?usp=sharing">Google Drive</a></td>
     </tr>
