@@ -11,7 +11,7 @@ from torchvision.datasets.folder import IMG_EXTENSIONS
 from PIL import Image
 from jax.tree_util import tree_map
 
-from utils import make_grid, pil_resize, RandomRotate
+from utils import make_grid, pil_resize
 
 TARGET_SIZE = 48
 
