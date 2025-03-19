@@ -11,20 +11,6 @@ import numpy as np
 from PIL import Image
 
 
-def seed_all(seed=42):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-
-
-def split(arr, n_devices):
-    """
-    Splits the first axis of `arr` evenly across the number of devices.
-    https://jax.readthedocs.io/en/latest/jax-101/06-parallelism.html
-    """
-    return arr.reshape(n_devices, arr.shape[0] // n_devices, *arr.shape[1:])
-
-
 def repeat_vmap(fun, in_axes=[0]):
     for axes in in_axes:
         fun = jax.vmap(fun, in_axes=axes)
@@ -55,17 +41,6 @@ def interpolate_grid(coords, grid, order=0):
     coords = coords.at[:, 1].set(coords[:, 1] * grid.shape[-2] + (grid.shape[-2] - 1) / 2)
     map_coordinates = partial(jax.scipy.ndimage.map_coordinates, order=order, mode='nearest')
     return jax.vmap(jax.vmap(map_coordinates, in_axes=(2, None), out_axes=2))(grid, coords)
-
-
-class RandomRotate:
-    """https://pytorch.org/vision/main/transforms.html"""
-
-    def __init__(self, angles):
-        self.angles = angles
-
-    def __call__(self, x):
-        angle = random.choice(self.angles)
-        return f.rotate(x, angle)
 
 
 def pil_resize(img, size):
