@@ -57,7 +57,7 @@ def process(source, model, params, target_shape, do_ensemble=True):
 
 
 def main(args: Namespace):
-    source = np.asarray(Image.open(args.in_file)) / 255.
+    source = np.asarray(Image.open(args.in_file).convert('RGB')) / 255.
 
     if args.scale is not None:
         if args.size is not None:
