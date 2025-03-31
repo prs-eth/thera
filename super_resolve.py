@@ -6,6 +6,7 @@ import pickle
 import jax
 from jax import jit
 import jax.numpy as jnp
+from chunkax import chunk
 import numpy as np
 from PIL import Image
 
@@ -14,34 +15,33 @@ from utils import make_grid, interpolate_grid
 
 MEAN = jnp.array([.4488, .4371, .4040])
 VAR = jnp.array([.25, .25, .25])
-PATCH_SIZE = 256
+PATCH_SIZE_DEC = 256
 
 
-def process_single(source, apply_encoder, apply_decoder, params, target_shape):
+def process_single(source, apply_encoder, apply_decoder, params, target_shape, patch_size_enc):
     t = jnp.float32((target_shape[0] / source.shape[1])**-2)[None]
     coords_nearest = jnp.asarray(make_grid(target_shape)[None])
     source_up = interpolate_grid(coords_nearest, source[None])
     source = jax.nn.standardize(source, mean=MEAN, variance=VAR)[None]
 
-    encoding = apply_encoder(params, source)
-    coords = jnp.asarray(make_grid(source_up.shape[1:3])[None])  # global sampling coords
-    out = jnp.full_like(source_up, jnp.nan, dtype=jnp.float32)
+    if patch_size_enc is not None:
+        apply_encoder = chunk(apply_encoder, patch_size_enc, (None, (-3, -2)))
 
-    for h_min in range(0, coords.shape[1], PATCH_SIZE):
-        h_max = min(h_min + PATCH_SIZE, coords.shape[1])
-        for w_min in range(0, coords.shape[2], PATCH_SIZE):
-            # apply decoder with one patch of coordinates
-            w_max = min(w_min + PATCH_SIZE, coords.shape[2])
-            coords_patch = coords[:, h_min:h_max, w_min:w_max]
-            out_patch = apply_decoder(params, encoding, coords_patch, t)
-            out = out.at[:, h_min:h_max, w_min:w_max].set(out_patch)
+    encoding = apply_encoder(params, source)
+    coords = jnp.asarray(make_grid(source_up.shape[1:3])[None])  # (1, H, W, 2)
+
+    out = chunk(
+        apply_decoder, 
+        PATCH_SIZE_DEC,
+        (None, None, (-3, -2), None),
+    )(params, encoding, coords, t)
 
     out = out * jnp.sqrt(VAR)[None, None, None] + MEAN[None, None, None]
     out += source_up
     return out
 
 
-def process(source, model, params, target_shape, do_ensemble=True):
+def process(source, model, params, target_shape, do_ensemble=True, patch_size_enc=None):
     apply_encoder = jit(model.apply_encoder)
     apply_decoder = jit(model.apply_decoder)
 
@@ -49,7 +49,8 @@ def process(source, model, params, target_shape, do_ensemble=True):
     for i_rot in range(4 if do_ensemble else 1):
         source_ = jnp.rot90(source, k=i_rot, axes=(-3, -2))
         target_shape_ = tuple(reversed(target_shape)) if i_rot % 2 else target_shape
-        out = process_single(source_, apply_encoder, apply_decoder, params, target_shape_)
+        out = process_single(
+            source_, apply_encoder, apply_decoder, params, target_shape_, patch_size_enc)
         outs.append(jnp.rot90(out, k=i_rot, axes=(-2, -3)))
 
     out = jnp.stack(outs).mean(0).clip(0., 1.)
@@ -77,7 +78,7 @@ def main(args: Namespace):
 
     model = build_thera(3, backbone, size)
 
-    out = process(source, model, params, target_shape, not args.no_ensemble)
+    out = process(source, model, params, target_shape, not args.no_ensemble, args.patch)
 
     Image.fromarray(np.asarray(out)).save(args.out_file)
 
@@ -91,6 +92,7 @@ def parse_args() -> Namespace:
                         help='Target size (h, w), mutually exclusive with --scale')
     parser.add_argument('--checkpoint', help='Path to checkpoint file')
     parser.add_argument('--no-ensemble', action='store_true', help='Disable geo-ensemble')
+    parser.add_argument('--patch', type=int, default=None, help='Patch size of input image')
     return parser.parse_args()
 
 

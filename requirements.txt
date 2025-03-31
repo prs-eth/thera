@@ -33,3 +33,4 @@ tqdm==4.65.0
 transformers==4.46.3
 Pillow==10.0.0
 wandb
+git+https://github.com/alebeck/chunkax.git@0.1.0
