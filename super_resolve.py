@@ -34,6 +34,7 @@ def process_single(source, apply_encoder, apply_decoder, params, target_shape, p
         apply_decoder, 
         PATCH_SIZE_DEC,
         (None, None, (-3, -2), None),
+        strategy='fit'
     )(params, encoding, coords, t)
 
     out = out * jnp.sqrt(VAR)[None, None, None] + MEAN[None, None, None]
