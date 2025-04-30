@@ -23,7 +23,7 @@ class Thermal(nn.Module):
         return jnp.sin(self.w0_scale * x + phase) * jnp.exp(-(self.w0_scale * norm)**2 * k * t)
 
 
-class TheraField(nn.Module):
+class HeatField(nn.Module):
     dim_hidden: int
     dim_out: int
     w0: float = 1.
@@ -61,8 +61,8 @@ class Thera:
         self.k_init = k_init
         self.components_init_scale = components_init_scale
 
-        # single TheraField object whose `apply` method is used for all grid cells
-        self.field = TheraField(hidden_dim, out_dim)
+        # single HeatField object whose `apply` method is used for all grid cells
+        self.field = HeatField(hidden_dim, out_dim)
 
         # infer output size of the hypernetwork from a sample pass through the field;
         # key doesnt matter as field params are only used for size inference
