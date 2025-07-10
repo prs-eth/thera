@@ -97,7 +97,11 @@ You can also host a local version of our [Hugging Face demo](https://huggingface
 Instructions for running the demo locally can be found in [the repo's README.md](https://huggingface.co/spaces/prs-eth/thera/blob/main/README.md).
 
 ## Training
-> Training code will be released soon.
+A simple command for training looks like this:
+```bash
+> python run_train.py --data-dir data_dir --size pro
+```
+Check `args/eval.py` for all training options.
 
 ## Useful XLA flags
 * Disable pre-allocation of entire VRAM: `XLA_PYTHON_CLIENT_PREALLOCATE=false`
