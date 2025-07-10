@@ -25,6 +25,7 @@
 </p>
 
 ## News
+**2025-07-10**: Training code is released<br>
 **2025-03-15**: We are #1 on Hacker News 🎉<br>
 **2025-03-14**: Interactive Hugging Face Space is online<br>
 **2025-03-12**: Pre-trained checkpoints are released

@@ -14,7 +14,7 @@ from torchvision import transforms
 from tqdm import tqdm
 from PIL import Image
 
-from args import parser
+from args.eval import parser
 from data import ImageFolder
 from model import build_thera
 from utils import make_grid, compute_metrics
@@ -92,8 +92,7 @@ def evaluate(val_loader, model, params, scale, border_crop,
                 .save(save_dir / f'{i_img}.png')
 
         s = border_crop
-        batch_metrics = compute_metrics(
-            out[:, s:-s, s:-s], target[:, s:-s, s:-s], compute_ssim=True, y_only=y_only)
+        batch_metrics = compute_metrics(out[:, s:-s, s:-s], target[:, s:-s, s:-s], y_only=y_only)
         for k, v in batch_metrics.items():
             metrics[k] += [v.item()]
 
@@ -101,7 +100,7 @@ def evaluate(val_loader, model, params, scale, border_crop,
 
 
 def main(args):
-    data_sets = [ImageFolder(Path(args.data_dir) / s, transforms.ToTensor(), in_memory=False)
+    data_sets = [ImageFolder(Path(args.data_dir) / s, in_memory=False)
                  for s in args.eval_sets]
     data_loaders = [DataLoader(s, batch_size=1, num_workers=0, shuffle=False) for s in data_sets]
 

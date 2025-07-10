@@ -1,6 +1,4 @@
 import configargparse
-import numpy as np
-import jax
 
 parser = configargparse.ArgumentParser()
 parser.add_argument('-c', '--config', is_config_file=True, type=str)

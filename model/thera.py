@@ -65,7 +65,7 @@ class Thera:
         self.field = HeatField(hidden_dim, out_dim)
 
         # infer output size of the hypernetwork from a sample pass through the field;
-        # key doesnt matter as field params are only used for size inference
+        # key doesn't matter as field params are only used for size inference.
         sample_params = self.field.init(jax.random.PRNGKey(0),
             jnp.zeros((2,)), 0., 0., jnp.zeros((2, hidden_dim)))
         sample_params_flat, tree_def = jax.tree_util.tree_flatten(sample_params)
